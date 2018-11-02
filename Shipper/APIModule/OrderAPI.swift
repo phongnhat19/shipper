@@ -31,7 +31,6 @@ class OrderAPI: Codable {
         params["app"].string = appID
         params["query"].string = "status in (\"\(Order.STATUS_PENDING)\")"
         params["totalCount"].string = "true"
-        print(params)
         kintoneAPI!.get(endpoint: "/records.json", params: params, callback:callback)
     }
     
@@ -45,8 +44,6 @@ class OrderAPI: Codable {
                 "value":newStatus
             ]
         ]
-        //params["record"]["status"].string = newStatus
-        print(params)
         kintoneAPI!.put(endpoint: "/record.json", params: params, callback:callback)
     }
     
