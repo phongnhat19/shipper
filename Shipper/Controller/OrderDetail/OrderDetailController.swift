@@ -52,6 +52,7 @@ class OrderDetailController: UIViewController, CLLocationManagerDelegate {
     var token = ""
     var apiHost = ""
     var customerLocation = CLLocation()
+    let acceptableDistance = 10
     
     private var MapAPIInstance = MapAPI(apiKey: "AIzaSyBnUFGbu9xqETENEGAKwVTVvx2Jd61lfi0")
     private var FirebaseAPIInstance = FirebaseAPI()
@@ -154,7 +155,7 @@ class OrderDetailController: UIViewController, CLLocationManagerDelegate {
         locationJSON["lng"].double = userLocation.coordinate.longitude
         self.syncRealLocationToFirebase(locationJSON:locationJSON)
         let distanceToDestination = userLocation.distance(from: self.customerLocation)
-        if distanceToDestination <= 10 {
+        if distanceToDestination <= Double(self.acceptableDistance) {
             manager.stopUpdatingLocation()
             self.stopTimer(finished: true)
         }
