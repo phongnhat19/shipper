@@ -29,8 +29,25 @@ class OrderAPI: Codable {
         params["page"].int = page
         params["limit"].int = limit
         params["app"].string = appID
+        params["query"].string = "status in (\"\(Order.STATUS_PENDING)\")"
         params["totalCount"].string = "true"
+        print(params)
         kintoneAPI!.get(endpoint: "/records.json", params: params, callback:callback)
+    }
+    
+    func changeStatus(orderID:String, newStatus:String, callback:@escaping (JSON)->Void) {
+        let kintoneAPI = KintoneAPI(token:self.token,apiHost:self.apiHost)
+        var params = JSON()
+        params["app"].string = appID
+        params["id"].string = orderID
+        params["record"].dictionaryObject = [
+            "status":[
+                "value":newStatus
+            ]
+        ]
+        //params["record"]["status"].string = newStatus
+        print(params)
+        kintoneAPI!.put(endpoint: "/record.json", params: params, callback:callback)
     }
     
     func getOrderDetail(orderID: String, callback:@escaping (JSON)->Void) {

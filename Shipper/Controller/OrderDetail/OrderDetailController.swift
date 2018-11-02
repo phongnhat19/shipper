@@ -33,8 +33,7 @@ class OrderDetailController: UIViewController, CLLocationManagerDelegate {
             self.startShippingRealButton.setTitle("Shipping...",for: .normal)
             self.startShippingButton.isEnabled = false
             self.startShippingRealButton.isEnabled = false
-            self.determineMyCurrentLocation()
-            //self.sendLocationTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.determineMyCurrentLocation(_:)), userInfo: nil, repeats: true)
+            self.getLocationOfShippingAddress(address: self.customerAddress,callback: self.determineMyCurrentLocation)
         }
     }
     
@@ -50,6 +49,9 @@ class OrderDetailController: UIViewController, CLLocationManagerDelegate {
     var locationIndex = 0
     weak var sendLocationTimer: Timer?
     var locationManager = CLLocationManager()
+    var token = ""
+    var apiHost = ""
+    var customerLocation = CLLocation()
     
     private var MapAPIInstance = MapAPI(apiKey: "AIzaSyBnUFGbu9xqETENEGAKwVTVvx2Jd61lfi0")
     private var FirebaseAPIInstance = FirebaseAPI()
@@ -78,6 +80,24 @@ class OrderDetailController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
+    func updateOrderStatusToComplete(orderID: String) {
+        let apiInstance = OrderAPI(token: self.token, apiHost: self.apiHost)
+        
+        apiInstance!.changeStatus(orderID: self.orderID, newStatus: Order.STATUS_COMPLETE) { (response) in
+            
+        }
+    }
+    
+    func updateFirebaseOrderStatusToComplete(orderID:String) {
+        var firebaseData = JSON()
+        firebaseData["groupKey"] = "shipperLocation"
+        firebaseData["data"] = [
+            "orderID":self.orderID as NSString,
+            "status":Order.STATUS_COMPLETE as NSString
+        ]
+        FirebaseAPIInstance.saveData(data: firebaseData)
+    }
+    
     func stopTimer(finished: Bool) {
         if (self.sendLocationTimer !== nil) {
             self.sendLocationTimer!.invalidate()
@@ -89,6 +109,8 @@ class OrderDetailController: UIViewController, CLLocationManagerDelegate {
             self.startShippingButton.isEnabled = true
             self.startShippingRealButton.isEnabled = true
             if finished {
+                self.updateOrderStatusToComplete(orderID: self.orderID)
+                self.updateFirebaseOrderStatusToComplete(orderID: self.orderID)
                 let alert = UIAlertController(title: "Congratulation !!!", message: "You've arrived at the customer location.", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
                     NSLog("The \"OK\" alert occured.")
@@ -114,7 +136,8 @@ class OrderDetailController: UIViewController, CLLocationManagerDelegate {
             "location":[
                 "lat":(locationJSON["lat"].doubleValue as NSNumber),
                 "lng":(locationJSON["lng"].doubleValue as NSNumber)
-            ]
+            ],
+            "status":Order.STATUS_SHIPPING as NSString
         ]
         FirebaseAPIInstance.saveData(data: firebaseData)
     }
@@ -126,11 +149,15 @@ class OrderDetailController: UIViewController, CLLocationManagerDelegate {
         // other wise this function will be called every time when user location changes.
         
         // manager.stopUpdatingLocation()
-        
         var locationJSON = JSON()
         locationJSON["lat"].double = userLocation.coordinate.latitude
         locationJSON["lng"].double = userLocation.coordinate.longitude
         self.syncRealLocationToFirebase(locationJSON:locationJSON)
+        let distanceToDestination = userLocation.distance(from: self.customerLocation)
+        if distanceToDestination <= 10 {
+            manager.stopUpdatingLocation()
+            self.stopTimer(finished: true)
+        }
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error)
@@ -140,19 +167,27 @@ class OrderDetailController: UIViewController, CLLocationManagerDelegate {
         self.stopTimer(finished: false)
     }
     
-    func determineMyCurrentLocation() {
-        locationManager = CLLocationManager()
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestAlwaysAuthorization()
+    func listenForLocation() {
+        self.locationManager = CLLocationManager()
+        self.locationManager.delegate = self
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        self.locationManager.requestAlwaysAuthorization()
         
         if CLLocationManager.locationServicesEnabled() {
-            locationManager.startUpdatingLocation()
-            //locationManager.startUpdatingHeading()
+            self.locationManager.startUpdatingLocation()
         }
         else {
             self.stopTimer(finished: false)
         }
+    }
+    
+    func getLocationOfShippingAddress(address:String, callback:@escaping (JSON)->Void){
+        MapAPIInstance.getLatLngFromAddress(address: address, callback: callback)
+    }
+    
+    func determineMyCurrentLocation(location: JSON) {
+        self.customerLocation = CLLocation(latitude: location["lat"].doubleValue, longitude: location["lng"].doubleValue)
+        self.listenForLocation()
     }
     
     @objc func syncLocationToFirebase(_ timer: Timer){
@@ -170,7 +205,8 @@ class OrderDetailController: UIViewController, CLLocationManagerDelegate {
             "location":[
                 "lat":(locationJSON["lat"].doubleValue as NSNumber),
                 "lng":(locationJSON["lng"].doubleValue as NSNumber)
-            ]
+            ],
+            "status":Order.STATUS_SHIPPING as NSString
         ]
         FirebaseAPIInstance.saveData(data: firebaseData)
     }

@@ -133,7 +133,8 @@ class OrderListController: UITableViewController {
             detailViewController.customerPhone = orderList[row].customerPhone
             detailViewController.customerName = orderList[row].customerName
             detailViewController.storeAddress = orderList[row].storeAddress
-            
+            detailViewController.token = self.token
+            detailViewController.apiHost = self.apiHost
         }
     }
  

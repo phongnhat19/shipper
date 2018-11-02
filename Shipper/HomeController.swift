@@ -10,10 +10,6 @@ import UIKit
 
 class HomeController: UIViewController {
     
-    //Properties
-    let token = "KXQEk6OHQfJt0FrH8AkHGF344GREuqFqKvCJzThb"
-    let apiHost = "https://nhat-nguyen.cybozu-dev.com/k/v1"
-    
     //Outlets
     @IBOutlet weak var labelHello: UILabel!
     

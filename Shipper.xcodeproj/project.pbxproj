@@ -140,6 +140,58 @@
 			path = FirebaseAPI;
 			sourceTree = "<group>";
 		};
+		7B6EFB53218C4A1300589BD9 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				7B6EFB56218C4A3A00589BD9 /* OrderDetail */,
+				7B6EFB55218C4A3000589BD9 /* OrderList */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		7B6EFB54218C4A1D00589BD9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7BF5D85B218171F300BCA931 /* Order.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		7B6EFB55218C4A3000589BD9 /* OrderList */ = {
+			isa = PBXGroup;
+			children = (
+				7BF5D8592181704700BCA931 /* OrderCellController.swift */,
+				7BF5D85721816DBD00BCA931 /* OrderListController.swift */,
+			);
+			path = OrderList;
+			sourceTree = "<group>";
+		};
+		7B6EFB56218C4A3A00589BD9 /* OrderDetail */ = {
+			isa = PBXGroup;
+			children = (
+				7B80CF542181D9A400F2E790 /* OrderDetailController.swift */,
+			);
+			path = OrderDetail;
+			sourceTree = "<group>";
+		};
+		7B6EFB57218C4A7500589BD9 /* APIModule */ = {
+			isa = PBXGroup;
+			children = (
+				7BF5D85E2181919800BCA931 /* OrderAPI.swift */,
+			);
+			path = APIModule;
+			sourceTree = "<group>";
+		};
+		7B6EFB58218C4A8D00589BD9 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				7BF5D8602181AA5700BCA931 /* kintoneAPI */,
+				7BD15C4D2182E5E400F51FC6 /* GoogleMapAPI */,
+				7B4C41832187FBBC00E9B103 /* FirebaseAPI */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 		7BA1DB4221804A2A001258FE = {
 			isa = PBXGroup;
 			children = (
@@ -165,11 +217,11 @@
 		7BA1DB4D21804A2A001258FE /* Shipper */ = {
 			isa = PBXGroup;
 			children = (
-				7B4C41832187FBBC00E9B103 /* FirebaseAPI */,
+				7B6EFB58218C4A8D00589BD9 /* Service */,
+				7B6EFB57218C4A7500589BD9 /* APIModule */,
+				7B6EFB54218C4A1D00589BD9 /* Model */,
+				7B6EFB53218C4A1300589BD9 /* Controller */,
 				7BD15C522183066900F51FC6 /* GoogleService-Info.plist */,
-				7BD15C4D2182E5E400F51FC6 /* GoogleMapAPI */,
-				7BF5D8602181AA5700BCA931 /* kintoneAPI */,
-				7BF5D85D2181733100BCA931 /* Order */,
 				7BA1DB7F21806F05001258FE /* assets */,
 				7BA1DB4E21804A2A001258FE /* AppDelegate.swift */,
 				7BA1DB5021804A2A001258FE /* HomeController.swift */,
@@ -213,18 +265,6 @@
 				7BD15C4E2182E5FD00F51FC6 /* MapAPI.swift */,
 			);
 			path = GoogleMapAPI;
-			sourceTree = "<group>";
-		};
-		7BF5D85D2181733100BCA931 /* Order */ = {
-			isa = PBXGroup;
-			children = (
-				7BF5D85721816DBD00BCA931 /* OrderListController.swift */,
-				7BF5D85B218171F300BCA931 /* Order.swift */,
-				7BF5D8592181704700BCA931 /* OrderCellController.swift */,
-				7BF5D85E2181919800BCA931 /* OrderAPI.swift */,
-				7B80CF542181D9A400F2E790 /* OrderDetailController.swift */,
-			);
-			path = Order;
 			sourceTree = "<group>";
 		};
 		7BF5D8602181AA5700BCA931 /* kintoneAPI */ = {

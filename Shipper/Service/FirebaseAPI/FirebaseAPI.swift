@@ -16,11 +16,24 @@ class FirebaseAPI {
     
     func saveData(data: JSON) {
         let groupKey = data["groupKey"].stringValue
+        var firebaseData = [String:Any]()
+        if data["data"]["status"].exists() {
+            firebaseData = [
+                "status":data["data"]["status"].stringValue
+            ]
+        }
+        if data["data"]["location"].exists() {
+            firebaseData["location"] = [
+                "lat":data["data"]["location"]["lat"].doubleValue,
+                "lng":data["data"]["location"]["lng"].doubleValue
+            ]
+        }
         self.dbRef.child(groupKey).child(data["data"]["orderID"].stringValue).setValue([
             "location": [
                 "lat":data["data"]["location"]["lat"].doubleValue,
                 "lng":data["data"]["location"]["lng"].doubleValue
-            ]
+            ],
+            "status":data["data"]["status"].stringValue
         ])
     }
     

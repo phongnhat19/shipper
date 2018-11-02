@@ -16,6 +16,9 @@ class Order:NSObject {
     var customerPhone: String!
     var storeAddress: String!
     var price: Int!
+    static let STATUS_SHIPPING = "Shipping"
+    static let STATUS_PENDING = "Pending"
+    static let STATUS_COMPLETE = "Complete"
     
     init?(orderID: String,customerName: String, customerAddress: String, customerPhone: String, storeAddress: String, price: Int) {
         
