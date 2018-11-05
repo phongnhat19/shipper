@@ -11,7 +11,7 @@ import Firebase
 import FirebaseDatabase
 import SwiftyJSON
 
-class FirebaseAPI {
+class FirebaseService {
     var dbRef: DatabaseReference! = Database.database().reference()
     
     func saveData(data: JSON) {

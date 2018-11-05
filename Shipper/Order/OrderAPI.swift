@@ -24,7 +24,7 @@ class OrderAPI: Codable {
     }
     
     func getOrder(page:Int, limit:Int, query:Any, callback:@escaping (JSON)->Void) {
-        let kintoneAPI = KintoneAPI(token:self.token,apiHost:self.apiHost)
+        let kintoneAPI = KintoneService(token:self.token,apiHost:self.apiHost)
         var params = JSON()
         params["page"].int = page
         params["limit"].int = limit
@@ -35,7 +35,7 @@ class OrderAPI: Codable {
     }
     
     func changeStatus(orderID:String, newStatus:String, callback:@escaping (JSON)->Void) {
-        let kintoneAPI = KintoneAPI(token:self.token,apiHost:self.apiHost)
+        let kintoneAPI = KintoneService(token:self.token,apiHost:self.apiHost)
         var params = JSON()
         params["app"].string = appID
         params["id"].string = orderID
@@ -48,7 +48,7 @@ class OrderAPI: Codable {
     }
     
     func getOrderDetail(orderID: String, callback:@escaping (JSON)->Void) {
-        let kintoneAPI = KintoneAPI(token:self.token,apiHost:self.apiHost)
+        let kintoneAPI = KintoneService(token:self.token,apiHost:self.apiHost)
         var params = JSON()
         params["app"].string = appID
         params["id"].string = orderID

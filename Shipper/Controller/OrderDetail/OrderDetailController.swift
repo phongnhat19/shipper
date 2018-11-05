@@ -54,8 +54,8 @@ class OrderDetailController: UIViewController, CLLocationManagerDelegate {
     var customerLocation = CLLocation()
     let acceptableDistance = 10
     
-    private var MapAPIInstance = MapAPI(apiKey: "AIzaSyBnUFGbu9xqETENEGAKwVTVvx2Jd61lfi0")
-    private var FirebaseAPIInstance = FirebaseAPI()
+    private var MapAPIInstance = MapService(apiKey: "AIzaSyBnUFGbu9xqETENEGAKwVTVvx2Jd61lfi0")
+    private var FirebaseAPIInstance = FirebaseService()
     
     func parseListLocation(responseLocation:JSON) {
         for location in responseLocation.arrayValue {

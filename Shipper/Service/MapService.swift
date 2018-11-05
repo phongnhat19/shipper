@@ -10,7 +10,7 @@ import UIKit
 import GoogleMaps
 import SwiftyJSON
 
-class MapAPI {
+class MapService {
     
     //Properties
     var GOOGLE_API_KEY = ""
