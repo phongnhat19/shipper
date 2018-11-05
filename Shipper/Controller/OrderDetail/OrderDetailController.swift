@@ -161,7 +161,7 @@ class OrderDetailController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error)
+    private func locationManager(_ manager: CLLocationManager, didFailWithError error: Error)
     {
         manager.stopUpdatingLocation()
         print("Error \(error)")

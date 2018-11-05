@@ -79,7 +79,6 @@ class KintoneAPI {
         let url = URL(string:self.apiHost+endpoint)
         var queryString = self.buildQueryString(params: params)
         queryString.remove(at: queryString.startIndex)
-        print(queryString)
         var request = URLRequest(url: url!)
         request.httpMethod = "PUT"
         do {

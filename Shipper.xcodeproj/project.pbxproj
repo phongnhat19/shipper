@@ -132,14 +132,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		7B4C41832187FBBC00E9B103 /* FirebaseAPI */ = {
-			isa = PBXGroup;
-			children = (
-				7B4C41842187FBD400E9B103 /* FirebaseAPI.swift */,
-			);
-			path = FirebaseAPI;
-			sourceTree = "<group>";
-		};
 		7B6EFB53218C4A1300589BD9 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -185,9 +177,9 @@
 		7B6EFB58218C4A8D00589BD9 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				7BF5D8602181AA5700BCA931 /* kintoneAPI */,
-				7BD15C4D2182E5E400F51FC6 /* GoogleMapAPI */,
-				7B4C41832187FBBC00E9B103 /* FirebaseAPI */,
+				7B4C41842187FBD400E9B103 /* FirebaseAPI.swift */,
+				7BD15C4E2182E5FD00F51FC6 /* MapAPI.swift */,
+				7B80CF522181CEFB00F2E790 /* kintoneAPI.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -257,22 +249,6 @@
 			children = (
 			);
 			path = assets;
-			sourceTree = "<group>";
-		};
-		7BD15C4D2182E5E400F51FC6 /* GoogleMapAPI */ = {
-			isa = PBXGroup;
-			children = (
-				7BD15C4E2182E5FD00F51FC6 /* MapAPI.swift */,
-			);
-			path = GoogleMapAPI;
-			sourceTree = "<group>";
-		};
-		7BF5D8602181AA5700BCA931 /* kintoneAPI */ = {
-			isa = PBXGroup;
-			children = (
-				7B80CF522181CEFB00F2E790 /* kintoneAPI.swift */,
-			);
-			path = kintoneAPI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
