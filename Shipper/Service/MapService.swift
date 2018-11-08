@@ -9,6 +9,7 @@
 import UIKit
 import GoogleMaps
 import SwiftyJSON
+import CoreLocation
 
 class MapService {
     
@@ -17,6 +18,49 @@ class MapService {
     let STROKE_WIDTH = 3.0
     let DIRECTION_ROUTE = "https://maps.googleapis.com/maps/api/directions/json"
     let GEOLOCATION_ROUTE = "https://maps.googleapis.com/maps/api/geocode/json"
+    
+    func pointAtRatio(p0: JSON, p1: JSON, ratio: Double) -> JSON {
+        var x: Double;
+        if (p0["lat"].doubleValue != p1["lat"].doubleValue) {
+            x = p0["lat"].doubleValue + ratio * (p1["lat"].doubleValue - p0["lat"].doubleValue);
+        }
+        else {
+            x = p0["lat"].doubleValue
+        }
+        
+        var y: Double;
+        if (p0["lng"].doubleValue != p1["lng"].doubleValue) {
+            y = p0["lng"].doubleValue + ratio * (p1["lng"].doubleValue - p0["lng"].doubleValue);
+        }
+        else {
+            y = p0["lng"].doubleValue
+        }
+        
+        var p = JSON()
+        p["lat"].double = x
+        p["lng"].double = y
+        
+        return p;
+    }
+    
+    func getDistanceOfPoints(origin:JSON, destination: JSON) -> Double {
+        
+        let coordinate0 = CLLocation(latitude: origin["lat"].doubleValue, longitude: origin["lng"].doubleValue)
+        let coordinate1 = CLLocation(latitude: destination["lat"].doubleValue, longitude: destination["lng"].doubleValue)
+        
+        let distanceInMeters = coordinate0.distance(from: coordinate1)
+        return distanceInMeters
+    }
+    
+    func generateLineOfPoint(origin:JSON, destination: JSON) -> [JSON] {
+        //var distance = self.getDistanceOfPoints(origin: origin, destination: destination)
+        var pointList = [JSON]()
+        pointList += [origin]
+        for i in 0...3 {
+            pointList += [self.pointAtRatio(p0: origin, p1: destination, ratio: 0.25*Double(i))]
+        }
+        return pointList
+    }
     
     func getLatLngFromAddress(address:String, callback:@escaping (JSON)->Void) {
         let urlString = "?address="+address.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!+"&key="+self.GOOGLE_API_KEY

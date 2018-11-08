@@ -68,6 +68,11 @@ class OrderDetailController: UIViewController, CLLocationManagerDelegate {
         destinationJSON["lat"] = responseLocation.arrayValue[responseLocation.arrayValue.count-1]["end_location"]["lat"]
         destinationJSON["lng"] = responseLocation.arrayValue[responseLocation.arrayValue.count-1]["end_location"]["lng"]
         self.locationList.append(destinationJSON)
+        var pointList = [JSON]()
+        for i in 0...self.locationList.count-2 {
+            pointList += MapAPIInstance.generateLineOfPoint(origin: self.locationList[i], destination: self.locationList[i+1])
+        }
+        self.locationList = pointList
     }
     
     func getRouteHandler(responseLocation:JSON) {

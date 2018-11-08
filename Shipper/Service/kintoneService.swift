@@ -49,7 +49,6 @@ class KintoneService {
             }
         }
         request.setValue(self.token, forHTTPHeaderField: "X-Cybozu-API-Token")
-        
         if ["POST","PUT"].contains(method) {
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         }
