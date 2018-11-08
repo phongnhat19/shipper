@@ -12,9 +12,24 @@ import SwiftyJSON
 class OrderListController: UITableViewController {
     let token = "ucAgtsAdA0ZsXE0OLozQLnnFPQJrRzJ2zgA4Ab0A"
     let apiHost = "https://hbr0a.kintone.com/k/v1"
+    
+    lazy var myRefreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(self.handleRefresh(_:)), for: UIControl.Event.valueChanged)
+        refreshControl.tintColor = UIColor.black
+        
+        return refreshControl
+    }()
+    
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+        loadOrders()
+        self.tableView.reloadData()
+        refreshControl.endRefreshing()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tableView.addSubview(self.myRefreshControl)
         loadOrders()
 
         // Uncomment the following line to preserve selection between presentations

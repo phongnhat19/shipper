@@ -52,12 +52,12 @@ class MapService {
         return distanceInMeters
     }
     
-    func generateLineOfPoint(origin:JSON, destination: JSON) -> [JSON] {
-        //var distance = self.getDistanceOfPoints(origin: origin, destination: destination)
+    func generateLineOfPoint(origin:JSON, destination: JSON, parts: Int) -> [JSON] {
         var pointList = [JSON]()
         pointList += [origin]
-        for i in 0...3 {
-            pointList += [self.pointAtRatio(p0: origin, p1: destination, ratio: 0.25*Double(i))]
+        let unit = Double(1 / parts)
+        for i in 0...(parts - 1) {
+            pointList += [self.pointAtRatio(p0: origin, p1: destination, ratio: unit*Double(i))]
         }
         return pointList
     }

@@ -200,7 +200,7 @@
                                                 <rect key="frame" x="31" y="45" width="125" height="45"/>
                                                 <color key="backgroundColor" red="0.40136885589999999" green="0.75056120069999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <state key="normal" title="Show Direction">
+                                                <state key="normal" title="Direction">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
@@ -285,11 +285,109 @@
                         <outlet property="orderIDLabel" destination="v7J-ex-7JN" id="qtE-no-PQy"/>
                         <outlet property="startShippingButton" destination="KdP-1K-1wp" id="dU4-L7-kJh"/>
                         <outlet property="startShippingRealButton" destination="vVc-1v-FEv" id="ezQ-pH-IZJ"/>
+                        <segue destination="4cF-XT-Oms" kind="presentation" identifier="showModalSegue" modalPresentationStyle="overCurrentContext" id="EFv-Qd-xhK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ci6-Ub-zsj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3404" y="132.68365817091455"/>
+        </scene>
+        <!--Modal View Controller-->
+        <scene sceneID="78I-1H-DSL">
+            <objects>
+                <viewController id="4cF-XT-Oms" customClass="ModalViewController" customModule="Shipper" customModuleProvider="target" sceneMemberID="viewController">
+                    <visualEffectView key="view" opaque="NO" contentMode="scaleToFill" id="viM-dm-cwK">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="bhe-5I-CFL">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uo1-D7-Ib7">
+                                    <rect key="frame" x="62.5" y="222.5" width="250" height="222"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="YOU'VE ARRIVED" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1e6-Yd-gGT">
+                                            <rect key="frame" x="0.0" y="0.0" width="250" height="74"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g8K-AI-CDE">
+                                            <rect key="frame" x="0.0" y="74" width="250" height="55.5"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uqX-7t-343">
+                                                    <rect key="frame" x="41.5" y="5.5" width="167" height="44.5"/>
+                                                    <color key="backgroundColor" red="0.11625578419803383" green="0.81786350388601037" blue="0.10030594891518434" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <state key="normal" title="Complete Order"/>
+                                                    <connections>
+                                                        <action selector="completeOrder:" destination="4Pd-He-bel" eventType="touchUpInside" id="M4X-QE-y1L"/>
+                                                        <action selector="completeOrder:" destination="4cF-XT-Oms" eventType="touchUpInside" id="nTs-a6-nwf"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstItem="uqX-7t-343" firstAttribute="centerX" secondItem="g8K-AI-CDE" secondAttribute="centerX" id="2Z0-Yx-Ver"/>
+                                                <constraint firstItem="uqX-7t-343" firstAttribute="width" secondItem="g8K-AI-CDE" secondAttribute="width" multiplier="2/3" id="3o8-IM-abQ"/>
+                                                <constraint firstItem="uqX-7t-343" firstAttribute="centerY" secondItem="g8K-AI-CDE" secondAttribute="centerY" id="LeH-Y9-jVx"/>
+                                                <constraint firstItem="uqX-7t-343" firstAttribute="height" secondItem="g8K-AI-CDE" secondAttribute="height" multiplier="4/5" id="PQI-BQ-Lga"/>
+                                            </constraints>
+                                        </view>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lo8-27-0ri">
+                                            <rect key="frame" x="0.0" y="129.5" width="250" height="55.5"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="izj-54-nWH">
+                                                    <rect key="frame" x="41.5" y="5.5" width="167" height="44.5"/>
+                                                    <color key="backgroundColor" red="0.91392082253886009" green="0.22649565411821046" blue="0.18731173237338505" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <state key="normal" title="Return Order"/>
+                                                    <connections>
+                                                        <action selector="returnOrder:" destination="4cF-XT-Oms" eventType="touchUpInside" id="FoI-Yw-Osn"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstItem="izj-54-nWH" firstAttribute="centerY" secondItem="Lo8-27-0ri" secondAttribute="centerY" id="Fiu-SB-egi"/>
+                                                <constraint firstItem="izj-54-nWH" firstAttribute="centerX" secondItem="Lo8-27-0ri" secondAttribute="centerX" id="GrL-pE-wpk"/>
+                                                <constraint firstItem="izj-54-nWH" firstAttribute="height" secondItem="Lo8-27-0ri" secondAttribute="height" multiplier="4/5" id="b1j-RW-5Ax"/>
+                                                <constraint firstItem="izj-54-nWH" firstAttribute="width" secondItem="Lo8-27-0ri" secondAttribute="width" multiplier="2/3" id="w6F-QP-7XJ"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstItem="1e6-Yd-gGT" firstAttribute="width" secondItem="uo1-D7-Ib7" secondAttribute="width" id="23j-3D-J4y"/>
+                                        <constraint firstItem="g8K-AI-CDE" firstAttribute="leading" secondItem="uo1-D7-Ib7" secondAttribute="leading" id="98l-d8-OEm"/>
+                                        <constraint firstItem="g8K-AI-CDE" firstAttribute="height" secondItem="uo1-D7-Ib7" secondAttribute="height" multiplier="1:4" id="Bc5-J3-Q7h"/>
+                                        <constraint firstItem="1e6-Yd-gGT" firstAttribute="top" secondItem="uo1-D7-Ib7" secondAttribute="top" id="HqZ-xp-KSy"/>
+                                        <constraint firstItem="g8K-AI-CDE" firstAttribute="top" secondItem="1e6-Yd-gGT" secondAttribute="bottom" id="IPU-LR-ozb"/>
+                                        <constraint firstItem="Lo8-27-0ri" firstAttribute="width" secondItem="uo1-D7-Ib7" secondAttribute="width" id="Mk7-oy-JJg"/>
+                                        <constraint firstItem="Lo8-27-0ri" firstAttribute="top" secondItem="g8K-AI-CDE" secondAttribute="bottom" id="OvT-is-gWZ"/>
+                                        <constraint firstItem="Lo8-27-0ri" firstAttribute="height" secondItem="uo1-D7-Ib7" secondAttribute="height" multiplier="1:4" id="Rin-2h-ZgJ"/>
+                                        <constraint firstItem="1e6-Yd-gGT" firstAttribute="leading" secondItem="uo1-D7-Ib7" secondAttribute="leading" id="df0-vv-w8Z"/>
+                                        <constraint firstItem="Lo8-27-0ri" firstAttribute="leading" secondItem="uo1-D7-Ib7" secondAttribute="leading" id="kYn-Ye-fmR"/>
+                                        <constraint firstItem="g8K-AI-CDE" firstAttribute="width" secondItem="uo1-D7-Ib7" secondAttribute="width" id="ooA-d2-Smf"/>
+                                        <constraint firstItem="1e6-Yd-gGT" firstAttribute="height" secondItem="uo1-D7-Ib7" secondAttribute="height" multiplier="1:3" id="qBh-gu-25z"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="uo1-D7-Ib7" firstAttribute="width" secondItem="bhe-5I-CFL" secondAttribute="width" multiplier="2/3" id="4Y2-Ff-ihy"/>
+                                <constraint firstItem="uo1-D7-Ib7" firstAttribute="height" secondItem="bhe-5I-CFL" secondAttribute="height" multiplier="1:3" id="UOD-hk-maN"/>
+                                <constraint firstItem="uo1-D7-Ib7" firstAttribute="centerX" secondItem="bhe-5I-CFL" secondAttribute="centerX" id="XLx-Hx-U5X"/>
+                                <constraint firstItem="uo1-D7-Ib7" firstAttribute="centerY" secondItem="bhe-5I-CFL" secondAttribute="centerY" id="kTG-NH-VPg"/>
+                            </constraints>
+                        </view>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <blurEffect style="dark"/>
+                    </visualEffectView>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IUj-gF-MX0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="4Pd-He-bel" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="4207.1999999999998" y="132.68365817091455"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="oBa-34-kkk">

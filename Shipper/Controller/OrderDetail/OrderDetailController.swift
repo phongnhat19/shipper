@@ -70,7 +70,13 @@ class OrderDetailController: UIViewController, CLLocationManagerDelegate {
         self.locationList.append(destinationJSON)
         var pointList = [JSON]()
         for i in 0...self.locationList.count-2 {
-            pointList += MapAPIInstance.generateLineOfPoint(origin: self.locationList[i], destination: self.locationList[i+1])
+            let distance = MapAPIInstance.getDistanceOfPoints(origin: self.locationList[i], destination: self.locationList[i+1])
+            if distance > 70 {
+                pointList += MapAPIInstance.generateLineOfPoint(origin: self.locationList[i], destination: self.locationList[i+1],parts: 4)
+            }
+            else {
+                pointList += [self.locationList[i],self.locationList[i+1]]
+            }
         }
         self.locationList = pointList
     }
@@ -86,42 +92,18 @@ class OrderDetailController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
-    func updateOrderStatusToComplete(orderID: String) {
-        let apiInstance = OrderAPI(token: self.token, apiHost: self.apiHost)
-        
-        apiInstance!.changeStatus(orderID: self.orderID, newStatus: Order.STATUS_COMPLETE) { (response) in
-            
-        }
-    }
-    
-    func updateFirebaseOrderStatusToComplete(orderID:String) {
-        var firebaseData = JSON()
-        firebaseData["groupKey"] = "shipperLocation"
-        firebaseData["data"] = [
-            "orderID":self.orderID as NSString,
-            "status":Order.STATUS_COMPLETE as NSString
-        ]
-        FirebaseAPIInstance.saveData(data: firebaseData)
-    }
-    
     func stopTimer(finished: Bool) {
         if (self.sendLocationTimer !== nil) {
             self.sendLocationTimer!.invalidate()
         }
         
         DispatchQueue.main.async {
-            self.startShippingButton.setTitle("Ship (Fake)",for: .normal)
-            self.startShippingRealButton.setTitle("Ship (Real)",for: .normal)
+            self.startShippingButton.setTitle("Direction",for: .normal)
+            self.startShippingRealButton.setTitle("Ship",for: .normal)
             self.startShippingButton.isEnabled = true
             self.startShippingRealButton.isEnabled = true
             if finished {
-                self.updateOrderStatusToComplete(orderID: self.orderID)
-                self.updateFirebaseOrderStatusToComplete(orderID: self.orderID)
-                let alert = UIAlertController(title: "Congratulation !!!", message: "You've arrived at the customer location.", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
-                    NSLog("The \"OK\" alert occured.")
-                }))
-                self.present(alert, animated: true, completion: nil)
+                self.performSegue(withIdentifier: "showModalSegue", sender: nil)
             }
             else {
                 let alert = UIAlertController(title: "No Permission !!!", message: "Sorry, we can't get your location.", preferredStyle: .alert)
@@ -129,6 +111,16 @@ class OrderDetailController: UIViewController, CLLocationManagerDelegate {
                     NSLog("The \"OK\" alert occured.")
                 }))
                 self.present(alert, animated: true, completion: nil)
+            }
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showModalSegue" {
+            if let destinationVC = segue.destination as? ModalViewController {
+                destinationVC.orderID = self.orderID
+                destinationVC.token = self.token
+                destinationVC.apiHost = self.apiHost
             }
         }
     }
@@ -154,7 +146,6 @@ class OrderDetailController: UIViewController, CLLocationManagerDelegate {
         // Call stopUpdatingLocation() to stop listening for location updates,
         // other wise this function will be called every time when user location changes.
         
-        // manager.stopUpdatingLocation()
         var locationJSON = JSON()
         locationJSON["lat"].double = userLocation.coordinate.latitude
         locationJSON["lng"].double = userLocation.coordinate.longitude
@@ -169,7 +160,6 @@ class OrderDetailController: UIViewController, CLLocationManagerDelegate {
     private func locationManager(_ manager: CLLocationManager, didFailWithError error: Error)
     {
         manager.stopUpdatingLocation()
-        print("Error \(error)")
         self.stopTimer(finished: false)
     }
     

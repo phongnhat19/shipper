@@ -21,6 +21,7 @@
 		7BA1DB7221804A2A001258FE /* ShipperUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA1DB7121804A2A001258FE /* ShipperUITests.swift */; };
 		7BD15C4F2182E5FD00F51FC6 /* MapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD15C4E2182E5FD00F51FC6 /* MapService.swift */; };
 		7BD15C532183066900F51FC6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7BD15C522183066900F51FC6 /* GoogleService-Info.plist */; };
+		7BF372E421941CFD001C19B3 /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF372E321941CFD001C19B3 /* ModalViewController.swift */; };
 		7BF5D85821816DBD00BCA931 /* OrderListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF5D85721816DBD00BCA931 /* OrderListController.swift */; };
 		7BF5D85A2181704700BCA931 /* OrderCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF5D8592181704700BCA931 /* OrderCellController.swift */; };
 		7BF5D85C218171F300BCA931 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF5D85B218171F300BCA931 /* Order.swift */; };
@@ -72,6 +73,7 @@
 		7BA1DB7321804A2A001258FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7BD15C4E2182E5FD00F51FC6 /* MapService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapService.swift; sourceTree = "<group>"; };
 		7BD15C522183066900F51FC6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		7BF372E321941CFD001C19B3 /* ModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
 		7BF5D85721816DBD00BCA931 /* OrderListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderListController.swift; sourceTree = "<group>"; };
 		7BF5D8592181704700BCA931 /* OrderCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderCellController.swift; sourceTree = "<group>"; };
 		7BF5D85B218171F300BCA931 /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				7B80CF542181D9A400F2E790 /* OrderDetailController.swift */,
+				7BF372E321941CFD001C19B3 /* ModalViewController.swift */,
 			);
 			path = OrderDetail;
 			sourceTree = "<group>";
@@ -505,6 +508,7 @@
 				7BF5D85C218171F300BCA931 /* Order.swift in Sources */,
 				7BF5D85F2181919800BCA931 /* OrderAPI.swift in Sources */,
 				7BF5D85821816DBD00BCA931 /* OrderListController.swift in Sources */,
+				7BF372E421941CFD001C19B3 /* ModalViewController.swift in Sources */,
 				7BA1DB5121804A2A001258FE /* HomeController.swift in Sources */,
 				7BA1DB5721804A2A001258FE /* Shipper.xcdatamodeld in Sources */,
 				7B80CF532181CEFB00F2E790 /* kintoneService.swift in Sources */,
